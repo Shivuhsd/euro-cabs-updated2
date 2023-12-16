@@ -1,0 +1,54 @@
+{% extends 'admin/dashboard.html' %}
+{% load static %}
+
+{% block active %}{%endblock%}
+{% block complaint %}active{%endblock%}
+
+{% block content %}
+<br>
+   <h4>Complaint  <span style="font-size: 18px;">({{data.id}})</span></h4>
+
+   <div class="container bg-gray py-4 px-3 mt-5 shadow">
+        <p><b>Name: </b> {{data.userName}} </p>
+        <p><b>Date Of Journey: </b>{{data.dateOfJourney}}</p>
+        <p><b>Mobile Number: </b>{{data.phoneNumber}}</p>
+        <p><b>Starting Point: </b>{{data.pickUpAddress}}</p>
+        <p><b>Drop Point: </b>{{data.dropAddress}}</p>
+        <p><b>Complaint Type: </b>{{data.complaintRegarding}}</p>
+        <p><b>Description: </b>{{data.description}}</p>
+        {% if data.opened != True %}
+        <button class="btn btn-primary" onclick="token()" id="tok">Accept Token</button>
+        <button class="btn btn-primary" type="button" disabled id="spin" style="display: none;">
+            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+            <span role="status">Updating....</span>
+        </button>
+        <button type="button" class="btn btn-primary" disabled style="display: none;" id="Accepted">Token Accepted</button>
+        {%endif%}
+   </div>
+
+   
+<script>
+    const token = async () =>{
+
+        document.getElementById('tok').style.display = 'none'
+        document.getElementById('spin').style.display = 'block'
+
+        const host = 'http://127.0.0.1:8000/'
+        let complaintID = '{{data.id}}'
+        const tokenUrl = `${host}dashboard/${complaintID}/tokenAccepted/`;
+
+
+        const response = await fetch(tokenUrl)
+
+        const result = await response.json()
+
+        if(result.status === 'success'){
+            document.getElementById('spin').style.display = 'none'
+            document.getElementById('Accepted').style.display = 'block'
+        }
+        console.log(result.status)
+    }
+   
+</script>
+
+{% endblock %}
