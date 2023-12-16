@@ -110,7 +110,7 @@ def complaintForm(request):
             form.save()
             return render(request, 'user/complaintsuccess.html')
         except:
-            print("Something Went Wrong.....")
+            messages.error("Something Went Wrong.....")
     else:
         print("Something Went Wrong Here also......")
     
@@ -153,7 +153,7 @@ def businessForm(request):
         
         try:
             form.save()
-            messages.error(request, 'Something Went Wrong')
+            messages.success(request, 'Form Submitted Successfully')
         except:
             return messages.error(request, 'Check Your Inputs..')
     

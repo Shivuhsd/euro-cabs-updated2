@@ -1,22 +1,26 @@
 let result;
-const baseUrl = `http://127.0.0.1:8000/users`
+const baseUrl = 'http://127.0.0.1:8000'
+
+console.log(baseUrl)
 
 const getDest = async()=> {
 
     document.getElementById('price').style.display = 'none';
 
-   const fromCity = document.getElementById('from')
+    const fromCity = document.getElementById('from')
 
-   const where = document.getElementById('where')
+    const where = document.getElementById('where')
 
-    const destUrl = `${baseUrl}/airportDest?dest=${fromCity.value}`;
+    const destUrl = `${baseUrl}/users/airportDest?dest=${fromCity.value}`;
+
+    console.log(destUrl)
 
     const response = await fetch(destUrl)
     result = await response.json()
 
     where.innerHTML = ''
-
-    console.log(result.dest)
+    console.log('Hellow')
+    console.log(result)
 
     const op = document.createElement('option')
         op.value = 'none'

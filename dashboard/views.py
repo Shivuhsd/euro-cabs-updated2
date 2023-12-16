@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 import users.models
-from . models import airportRates, airportCity
+from . models import airportRates, airportCity, businessForm
 from django.http import HttpResponse, JsonResponse
 from .forms import MyAirportCity
 
@@ -151,3 +151,24 @@ def deleteAirport(request, pk):
     data = airportRates.objects.get(id = pk)
     data.delete()
     return redirect('addAirports')
+
+
+#To Fecth All Business Forms
+
+def businessForms(request):
+    data = businessForm.objects.all()
+
+    context = {
+        'data': data
+    }
+    return render(request, 'admin/businessForms.html', context)
+
+
+#To Fetch Single Business Form
+def businessFormView(request, pk):
+    data = businessForm.objects.get(id = pk)
+
+    context = {
+        'data':data
+    }
+    return render(request, 'admin/businessFormView.html', context)

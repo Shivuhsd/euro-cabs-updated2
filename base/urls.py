@@ -18,11 +18,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import RedirectView
 # from django.shortcuts import render
 
 handler404 = 'dashboard.views.custom404'
 
 urlpatterns = [
+    path('', RedirectView.as_view(url = '/users/home', permanent = True)),
     path('eurocabsadmin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('dashboard/', include('dashboard.urls')),

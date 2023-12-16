@@ -11,4 +11,6 @@ urlpatterns = [
     path('<str:pk>/editCity/', views.editCity, name='editCity'),
     path('<str:pk>/deleteCity/', views.deleteCity, name='deleteCity'),
     path('<str:pk>/deleteAirport/', views.deleteAirport, name='deleteAirport'),
+    path('businessForms/', views.businessForms, name='businessForms'),
+    path('<str:pk>/businessForm/', views.businessFormView, name='businessFormView'),
 ]
