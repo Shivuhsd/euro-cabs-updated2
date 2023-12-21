@@ -205,6 +205,15 @@ a {
   text-align: left;
 }
 
+.icon {
+  margin-right: 15px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    padding: 12px;
+    border-radius: 50px;
+}
+
 /* footer css */
 
 .footer {
@@ -247,6 +256,15 @@ a {
 .social-icons {
   display: flex;
   justify-content: space-between;
+  gap: 10px;
+}
+
+.social-icons a {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  padding: 12px;
+  border-radius: 30px;
 }
 
 .social-icons a:nth-child(1):hover i {
@@ -302,7 +320,7 @@ a {
     width: 100%;
     font-size: 12px;
     line-height: 30px;
-    text-align:start;
+    text-align: start;
   }
   .content h2 {
     font-size: 18px;

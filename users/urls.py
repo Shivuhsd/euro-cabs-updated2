@@ -14,4 +14,6 @@ urlpatterns = [
     path('complaintForm/', views.complaintForm, name='complaintForm'),
     path('businessForm/', views.businessForm, name='businessForm'),
     path('airportDest/', views.airportDest, name='airportDest'),
+    path('airports/', views.airports, name='airports'),
+    path('schools/', views.schools, name='schools'),
 ]

@@ -1,7 +1,5 @@
 let result;
-const baseUrl = 'http://127.0.0.1:8000'
-
-console.log(baseUrl)
+const baseUrl = window.location.host
 
 const getDest = async()=> {
 
@@ -13,15 +11,13 @@ const getDest = async()=> {
 
     const destUrl = `${baseUrl}/users/airportDest?dest=${fromCity.value}`;
 
-    console.log(destUrl)
+
 
     const response = await fetch(destUrl)
     result = await response.json()
 
     where.innerHTML = ''
-    console.log('Hellow')
-    console.log(result)
-
+   
     const op = document.createElement('option')
         op.value = 'none'
         op.innerText = 'Select A City'

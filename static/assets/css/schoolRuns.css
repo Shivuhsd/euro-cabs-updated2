@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Montserrat:wght@200;300;400;700;800&family=Roboto:wght@300;400&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Roboto:wght@300;400&family=Rubik+Doodle+Shadow&family=Rubik+Lines&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -65,16 +65,6 @@ a {
   color: #fff;
 }
 .navbar-collapse {
-  /* position: fixed;
-  top: 0;
-  right: 0;
-  height: 100vh;
-  background-color: #000000;
-  width: 240px;
-  padding: 1.9rem;
-  transform: translateX(100%);
-  transition: all 0.5s ease; */
-
   position: fixed;
   top: 0;
   right: 0;
@@ -162,56 +152,171 @@ a {
   padding: 2vw 4vw;
 }
 
-/* business-cards-container css */
-#business-cards-container {
-  padding-top: 50px;
+/* Second section */
+.content {
+  min-height: 100%;
+  min-width: 100%;
+  margin-top: 95px;
 }
 
-#business-cards-container h1 {
+.content h1 {
+  text-align: center;
+  padding: 4vw 2vw 0vw 0vw;
+  font-family: "Rubik Doodle Shadow", sans-serif;
+  color: #001220;
+  letter-spacing: 6px;
+}
+
+.info {
+  width: 90%;
+  display: block;
+  margin: auto;
+}
+
+.center {
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+}
+
+.info p {
+  font-size: 19px;
+  font-family: "Poppins", sans-serif;
+  padding: 3vw 0 0 0;
+  line-height: 2.3vw;
+  font-weight: 500;
+  color: #000000;
+}
+
+.card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 4vw 2vw 4vw 2vw;
+  gap: 40px;
+}
+
+.card-2 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 4vw 2vw 4vw 2vw;
+  gap: 40px;
+}
+
+.card-item {
+  flex: 1 1 300px;
+  max-width: 350px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.card-item h4 {
   text-align: center;
 }
 
-.business-card-container {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  width: 90%;
-  margin: auto;
-  padding: 4vw;
-  margin-top: 30px;
+.card-item:hover {
+  transform: scale(1.05);
 }
 
-.content {
-  background-color: #ffffff;
-  padding: 24px;
-  width: 80%;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.card-item img {
+  width: 50%;
+  border-radius: 100px;
+  margin-bottom: 15px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  padding: 20px;
+}
+
+.card-item h3 {
+  font-size: 1.2em;
+  margin-bottom: 5px;
+}
+
+.card-item h4 {
+  font-size: 1.1em;
+  color: #333;
   margin-bottom: 10px;
 }
 
-.hyper-link {
-  font-weight: 600;
-  color: #fede00;
-}
-
-.content li {
-  padding: 6px;
-  line-height: 30px;
-}
-
-.content p {
-  font-size: 15px;
+.card-item p {
+  font-size: 0.9em;
+  font-family: "Poppins", sans-serif;
   font-weight: 500;
-  text-align: justify;
-  padding: 12px;
-  line-height: 35px;
+  line-height: 29px;
 }
 
-.content h2 {
+.contact-div {
+  padding: 3vw 2vw 3vw 2vw;
+  margin: auto;
+}
+
+.form-container {
+  max-width: 550px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 2px solid #001220;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.form-container h2 {
+  padding: 1.5vw;
   font-size: 20px;
+}
+
+.form-container p {
+  line-height: 29px;
+  text-align: justify;
+  padding: 2vw 1vw 2vw 1vw;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  float: left;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+.submit_btn {
+  padding: 10px 20px;
+  border: none;
+  outline: none;
+  margin: auto;
+  width: 30%;
+  display: block;
+  border-radius: 5px;
+  background-color: #000000;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit_btn:hover {
+  background-color: #f7b928;
+  transition: 0.5s ease;
 }
 
 /* footer css */
@@ -310,27 +415,33 @@ a {
   .navbar-nav {
     margin: 4rem 0rem;
   }
-
-  .content {
-    width: 90%;
-    gap: 8px;
-  }
-
-  .content p {
-    width: 100%;
-    font-size: 12px;
-    line-height: 30px;
-    text-align:start;
-  }
-  .content li {
-    font-size: 12px;
-  }
-  .content h2 {
+  .content h1 {
     font-size: 18px;
+    padding: 12px;
+    line-height: 8vw;
   }
-
-  #business-cards-container h1 {
+  .info p {
+    font-size: 16px;
+    line-height: 7vw;
+    text-align: justify;
+  }
+  .card-item {
+    max-width: 300px;
+  }
+  .contact-div {
+    padding: 9vw 0 9vw 0;
+  }
+  .form-container {
+    width: 83%;
+  }
+  .form-container h2 {
     text-align: center;
-    margin-top: 12px;
+    line-height: 7vw;
+  }
+  .form-container p {
+    font-size: 14px;
+    padding: 3vw;
+    text-align: justify;
+    letter-spacing: 1px;
   }
 }

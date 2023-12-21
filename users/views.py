@@ -168,3 +168,16 @@ def airportDest(request):
         dest = dashboard.models.airportCity.objects.filter(fromCity = dashboard.models.airportRates.objects.get(id = fromCity))
         dest_list = list(dest.values())
         return JsonResponse({'dest': dest_list})
+    
+
+
+# Function to airport page
+    
+def airports(request):
+    return render(request, 'user/Airports.html')
+
+
+# Function to School Page
+
+def schools(request):
+    return render(request, 'user/schoolRuns.html')
