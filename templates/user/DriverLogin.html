@@ -86,7 +86,9 @@
                 <p>Become a Eurocabs driver, set your schedule and earn money by driving!</p>
             </div>
             <div class="right">
-                <form action="#" method="post" class="driver-form">
+                {% block otp %}
+                <form method="POST" class="driver-form" >
+                    {% csrf_token %}
                     <h2>Become a Driver</h2>
                     <div class="form-group">
                         <label for="email">Email:</label>
@@ -100,7 +102,16 @@
                                 required>
                         </div>
                     </div>
+
                     <div class="form-group">
+                        <label for="password1">Password</label>
+                        <input style="width: calc(100% - 12px);
+                        padding: 8px;
+                        border-radius: 4px;
+                        border: 1px solid #ccc;
+                        margin-top: 5px;" type="password" id="password1" name="password1" placeholder="Enter Password" required>
+                    </div>
+                    <!-- <div class="form-group">
                         <label for="location">Location:</label>
                         <select id="location" name="location" required>
                             <option value="" disabled selected>Select your city</option>
@@ -110,7 +121,7 @@
                             <option value="Paris">Paris</option>
                             <option value="Sydney">Sydney</option>
                         </select>
-                    </div>
+                    </div> -->
                     <div class="form-group-checkbox">
                         <input type="checkbox" id="terms" name="terms" required>
                         <label for="terms">By signing up, you agree to our Terms and Conditions and confirm that you
@@ -118,9 +129,17 @@
                             operation.</label>
                     </div>
                     <button type="submit" class="signup-driver-btn">Sign up as a Driver</button>
-                    <p>Already have an account? <a href="#">Log in</a></p>
+                    {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+                    <p>Already have an account? <a href="{% url 'userLogin' %}">Log in</a></p>
                     <p>If you have multiple vehicles and drivers, sign up as a Fleet owner.</p>
                 </form>
+                {% endblock %}
             </div>
         </div>
     </div>

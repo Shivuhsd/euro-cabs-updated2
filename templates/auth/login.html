@@ -2,43 +2,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
 </head>
 <body>
-
-    <div class="container">
+  
+  <div class="navbar">
+    <img class="limg" src="{%static 'img/euro.png' %}" alt="">
+    <div class="nav-items">
+      <p>Admin Login</p>
       {% if request.user.is_authenticated %}
-      <h1>You are Already Logged in <a href="{% url 'adminDashboard' %}">click here..</a></h1>
-        {%else%}
-
-        <form class="form" method="POST">
-          {% csrf_token %}
-          <p class="form-title">Sign in to your account</p>
-           <div class="input-container">
-             <input type="email" placeholder="Enter email" name="email">
-             <span>
-             </span>
-         </div>
-         <div class="input-container">
-             <input type="password" placeholder="Enter password" name="password">
-           </div>
-            <button type="submit" class="submit">
-           Sign in
-         </button>
-   
-         <p class="signup-link">
-           No account?
-           <a href="#">Sign up</a>
-         </p>
-      </form>
-         
-        {% endif %}
-     
+      <a href="{% url 'userLogout' %}"><button class="logout">Logout</button></a>{%endif%}
     </div>
-    
-   
+  </div>
+
+
+
+  <main>
+    <div class="main-body">
+
+      {% if request.user.is_authenticated %}
+      <div class="ab">
+        <h1>You Are Already Logged In</h1>
+        <a href="{% url 'adminDashboard'%}">Dashboard</a>
+      </div>
+      {%else%}
+      <form action="" class="login-form" method="POST">
+        {%csrf_token%}
+        <div>
+          <img class="lim" src="{% static 'img/euro.png' %}" alt="EuroCabs"><br>
+          <p style="text-align: center;">Admin Login</p><br>
+        <label for="e-mail">Email</label><br>
+        <input type="email" name="email" placeholder="Enter Email" required id="e-mail"><br>
+
+        <label for="pass">Password</label><br>
+        <input type="password" name="password" id="pass" required placeholder="Enter Password"><br>
+
+        <button type="submit" class="btn">Login</button>
+        {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+        </div><br>
+        
+{% endif %}
+      </form>
+      {%endif%}
+    </div>
+  </main>
+  
 </body>
 </html>

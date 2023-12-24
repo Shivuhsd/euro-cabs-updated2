@@ -2,12 +2,35 @@
 {% load static %}
 
 {% block active %}{%endblock%}
+
 {% block complaint %}active{%endblock%}
+
+
+
+
+
+  {% block noti %}
+  {% if complaints %}
+    <div style="width: 10px; height: 10px; border-radius: 50%; background-color: aqua;"></div>
+    {%endif%}
+  {% endblock %}
+
 
 {% block content %}
 <br>
-   <h4>Complaints</h4>
+  <div class="d-flex justify-content-between">
+    <h4>Complaints</h4>
+    <div>
+      <a href="{% url 'complaints' %}"><button class="btn btn-dark">New</button></a>
+      <a href="{% url 'oldComplaints' %}"><button class="btn btn-dark">Previous</button></a>
+    </div>
+  </div>
+  
+  {% if complaints %}
+
+  <h4 class="text-dark mt-5">New Complaints</h4>
    <div class="list-group mt-5" >
+    
     {% for complaint in complaints %}
     <a href="{% url 'showComplaint' complaint.id %}" {% if complaint.opened  == False %} style="border: 2px solid blue;"{% else %} style="border: 2px solid rgb(133, 133, 255);" {% endif %} class="list-group-item list-group-item-action my-3" aria-current="true">
       <div class="d-flex w-100 justify-content-between">
@@ -18,5 +41,14 @@
       <small>Starting Poing: {{complaint.pickUpAddress}} <b>-- TO --</b>Drop Point: {{complaint.dropAddress}}</small>
     </a>
     {% endfor %}
+
   </div>
+   {% else %}
+    <div class="text-center mt-4">
+      <img src="{% static 'img/nomail.svg' %}" alt="No Complaints Img" class="img-fluid" style="width: 400px;">
+      <h1>There is No New Complaints...</h1>
+    </div>
+   
+
+   {% endif %}
 {% endblock %}

@@ -13,4 +13,7 @@ urlpatterns = [
     path('<str:pk>/deleteAirport/', views.deleteAirport, name='deleteAirport'),
     path('businessForms/', views.businessForms, name='businessForms'),
     path('<str:pk>/businessForm/', views.businessFormView, name='businessFormView'),
+    path('oldComplaints/', views.oldComplaints, name='oldComplaints'),
+    path('driverFiles/', views.DriverFiles, name='driverFiles'),
+    path('driverFilesView/<str:pk>/', views.DriverFilesView, name='driverFilesView'),
 ]

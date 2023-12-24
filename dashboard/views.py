@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 import users.models
+import accounts.models
 from . models import airportRates, airportCity, businessForm
 from django.http import HttpResponse, JsonResponse
 from .forms import MyAirportCity
@@ -20,7 +21,7 @@ def adminDashborad(request):
 
 def complaints(request):
     if request.user.is_superuser:
-        data = users.models.ComplaintForm.objects.all()
+        data = users.models.ComplaintForm.objects.filter(opened = False)
 
         context = {
             'complaints': data
@@ -140,9 +141,9 @@ def editCity(request, pk):
             # obj.fromCity = aid
             # obj.save()
             else:
-                messages.error("Sorry, Something Went Wrong, Check Your Inputs...")
+                messages.error(request, "Sorry, Something Went Wrong, Check Your Inputs...")
         else:
-            messages.erroe("I think you sent a bad request, for security issues we cannot allow your submit")
+            messages.error(request, "I think you sent a bad request, for security issues we cannot allow your submit")
         
 
         context = {
@@ -202,3 +203,51 @@ def businessFormView(request, pk):
         return render(request, 'admin/businessFormView.html', context)
     else:
         return render(request, 'admin/notAuthorised.html')
+    
+
+# Function to View Old Complaints
+@login_required(login_url='userLogin')
+def oldComplaints(request):
+    data = users.models.ComplaintForm.objects.filter(opened = True)
+
+    context = {
+        'complaints': data
+    }
+
+    return render(request, 'admin/oldComplaints.html', context)
+
+
+
+
+@login_required(login_url='userLogin')
+def DriverFiles(request):
+    data = users.models.DriverFiles.objects.filter(accept_flag = False)
+    context = {
+        'data':data
+    }
+    return render(request, 'admin/driverFiles.html', context)
+
+
+
+# Function to view Driver Files for verification
+@login_required(login_url='userLogin')
+def DriverFilesView(request, pk):
+    user = accounts.models.CustomUser.objects.get(id = pk)
+    exuser = accounts.models.ExtendUser.objects.get(id_user = user)
+    driverFiles = users.models.DriverFiles.objects.get(driver_id = user)
+
+    if request.method == 'POST':
+        if driverFiles.all_files_flag == True:
+            driverFiles.accept_flag = True
+            driverFiles.save()
+        else:
+            messages.error("Someting Went Wrong")
+
+
+    context = {
+        'user':user,
+        'exuser': exuser,
+        'driverFiles': driverFiles
+    }
+
+    return render(request, 'admin/driverfilesView.html', context)

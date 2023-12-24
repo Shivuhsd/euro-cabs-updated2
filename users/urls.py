@@ -10,10 +10,15 @@ urlpatterns = [
     path('websiteTerms/', views.websiteTerms, name='websiteTerms'),
     path('corporate/', views.corporate, name='corporate'),
     path('businessT&C/', views.businessTerms, name='businessTerms'),
-    path('driverRegister/', views.driverRegister, name='driverRegister'),
+    # path('driverRegister/', views.driverRegister, name='driverRegister'),
     path('complaintForm/', views.complaintForm, name='complaintForm'),
     path('businessForm/', views.businessForm, name='businessForm'),
     path('airportDest/', views.airportDest, name='airportDest'),
     path('airports/', views.airports, name='airports'),
     path('schools/', views.schools, name='schools'),
+
+    ##Driver Registration Field
+
+    path('driverForm/', views.DriverForm, name='driverForm'),
+    path('driverDash/', views.DriverDash, name='driverDash'),
 ]

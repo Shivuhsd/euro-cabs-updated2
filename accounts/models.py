@@ -10,3 +10,14 @@ class CustomUser(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
+
+# Extended User Model
+class ExtendUser(models.Model):
+    id = models.UUIDField(primary_key = True, editable = False, default = uuid.uuid4)
+    id_user = models.ForeignKey(CustomUser, on_delete = models.CASCADE)
+    phone_number = models.CharField(max_length=15, null=True)
+    phone_code = models.CharField(max_length = 100, null = True)
+
+
+    def __str__(self):
+        return self.phone_number

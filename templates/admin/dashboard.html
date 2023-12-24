@@ -63,30 +63,39 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% block complaint %}active{%endblock%}" href="{% url 'complaints' %}">
+            <a class="nav-link {% block complaint %} {%endblock%}" href="{% url 'complaints' %}">
               <span data-feather="file"></span>
-              Complaints
+              <div style="display: flex;"><span>Complaints</span> {% block noti %}{% endblock %}</div>
             </a>
           </li>
+          <!-- <li class="nav-item dropdown">
+            <button style="border: none; outline: none;" class="nav-link bg-light" data-bs-toggle="dropdown" aria-expanded="false">
+              Complaints
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">New</a></li>
+              <li><a class="dropdown-item" href="#">Previous</a></li>
+            </ul>
+          </li> -->
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'addAirports' %}">
+            <a class="nav-link {% block airport %} {%endblock%}" href="{% url 'addAirports' %}">
               <span data-feather="shopping-cart"></span>
               Airport Rates
             </a>
           </li>
           
-            <a class="nav-link" href="{% url 'businessForms' %}">
+            <a class="nav-link {% block business %} {%endblock%}" href="{% url 'businessForms' %}">
               <span data-feather="users"></span>
               Business Query
             </a>
           </li>
-          <!--<li class="nav-item">
-            <a class="nav-link" href="#">
+          <li class="nav-item ">
+            <a class="nav-link {% block driverApp %} {%endblock%}" href="{% url 'driverFiles' %}">
               <span data-feather="bar-chart-2"></span>
-              Reports
+              Driver Applications
             </a>
           </li>
-          <li class="nav-item">
+          <!--<li class="nav-item">
             <a class="nav-link" href="#">
               <span data-feather="layers"></span>
               Integrations

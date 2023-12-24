@@ -240,7 +240,7 @@ label {
 
 input[type="email"],
 input[type="tel"],
-input[type="text"] {
+input[type="password"] {
   width: calc(100% - 12px);
   padding: 8px;
   border-radius: 4px;

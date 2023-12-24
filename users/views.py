@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
-from .models import ComplaintForm
+from .models import ComplaintForm, DriverFiles
 import dashboard.models
-from .forms import MyBusinessForm
+from .forms import MyBusinessForm, MyDriver
 from django.contrib import messages
+from .custom import generate_unique_random_numbers
+
 
 
 # Create your views here.
@@ -97,7 +99,8 @@ def complaintForm(request):
             complaintRegarding = complaintRegarding + '-----' + other
         description = request.POST['description']
 
-        form = ComplaintForm(userName = userName, 
+        form = ComplaintForm(ComplintId = generate_unique_random_numbers(8),
+                            userName = userName, 
                              dateOfJourney = dateOfJourney, 
                              phoneNumber = phoneNumber,
                              pickUpAddress = pickUpAddress,
@@ -181,3 +184,39 @@ def airports(request):
 
 def schools(request):
     return render(request, 'user/schoolRuns.html')
+
+
+
+# DRIVER PERSONAL DETAILS
+
+def DriverForm(request):
+    if 'username' in request.session:
+        del request.session['username']
+    form = MyDriver()
+    if request.method == 'POST':
+        data = MyDriver(request.POST, request.FILES)
+        if data.is_valid():
+            obj = data.save(commit=False)
+            obj.driver_id = request.user
+            obj.all_files_flag = True
+            obj.save()
+        else:
+            messages.error(request, 'Something Went Wrong')
+    context = {
+        'form': form
+    }
+    return render(request, 'user/driverRegister.html', context)
+
+
+#Driver Dash
+def DriverDash(request):
+    mes = ''
+    data = get_object_or_404(DriverFiles, driver_id = request.user)
+    if data.all_files_flag == True and data.accept_flag == True:
+        mes = "You Are Selected"
+    elif data.all_files_flag == True and data.accept_flag == False:
+        mes = "Application is in Process..."
+    else:
+        return redirect('driverForm')
+
+    return render(request, 'user/driverDash.html', {'data': mes})

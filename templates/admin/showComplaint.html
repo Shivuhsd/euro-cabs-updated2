@@ -4,9 +4,15 @@
 {% block active %}{%endblock%}
 {% block complaint %}active{%endblock%}
 
+{% block noti %}
+  {% if complaints %}
+    <div style="width: 10px; height: 10px; border-radius: 50%; background-color: aqua;"></div>
+    {%endif%}
+  {% endblock %}
+
 {% block content %}
 <br>
-   <h4>Complaint  <span style="font-size: 18px;">({{data.id}})</span></h4>
+   <h4>Complaint  <span style="font-size: 18px;">({{data.ComplintId}})</span></h4>
 
    <div class="container bg-gray py-4 px-3 mt-5 shadow">
         <p><b>Name: </b> {{data.userName}} </p>
