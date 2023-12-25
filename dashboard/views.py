@@ -2,11 +2,14 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 import users.models
 import accounts.models
-from . models import airportRates, airportCity, businessForm
+from . models import airportRates, airportCity, businessForm, Fleet
 from django.http import HttpResponse, JsonResponse
-from .forms import MyAirportCity
+from .forms import MyAirportCity, MyFleets
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from datetime import datetime, timedelta
+from django.utils import timezone
+
 
 # Create your views here.
 
@@ -251,3 +254,143 @@ def DriverFilesView(request, pk):
     }
 
     return render(request, 'admin/driverfilesView.html', context)
+
+
+
+# Function to handle the fleet
+def MyFleet(request):
+    form = MyFleets()
+    if request.method == 'POST':
+        plate_number = request.POST['plate-number']
+        make = request.POST['make']
+        phhc = request.POST['phhc']
+        number_plate = request.POST['number-plate']
+        color = request.POST['color']
+        ped1 = request.POST['ped']
+        # ped = datetime.strptime(ped1, '%Y-%m-%d').date()
+        med1 = request.POST['med']
+        # med = datetime.strptime(med1, '%Y-%m-%d').date()
+
+        try:
+            form = Fleet(
+            Plate_Number = plate_number,
+            Make_or_Model = make,
+            PH_or_HC = phhc,
+            Number_Plate = number_plate,
+            Color = color,
+            Plate_Expiry_Date = ped1,
+            MOT_Expiry_Date = med1
+            )
+
+            form.save()
+            messages.success(request, "Vehicle Added..")
+        except ValueError:
+            messages.error(request, "Invalid Values...")
+
+
+        # data = MyFleets(request.POST)
+        # if data.is_valid():
+        #     data.save()
+    
+    context = {
+        'form': form
+    }
+    return render(request, 'admin/myfleet.html', context)
+
+
+def ManageFleet(request):
+    context = {}
+    today = datetime.now().date()
+    fleet_info_list = []
+    mot_list = []
+    if request.method == 'GET':
+        q = request.GET['q']
+        if q == 'all' or q == None:
+            threshhold = today + timedelta(days=60)
+            Pexp = Fleet.objects.all()
+            for i in Pexp:
+                if i.Plate_Expiry_Date <= threshhold:
+                    fleet_info_list.append(i)
+            
+            for j in Pexp:
+                if j.MOT_Expiry_Date <= threshhold:
+                    mot_list.append(j)
+        
+            context = {
+                'mot': mot_list,
+                'exwar': fleet_info_list,
+                'data' : Pexp
+            }
+        
+        if q == 'warning':
+            threshhold = today + timedelta(days=60)
+            Pexp = Fleet.objects.all()
+            for i in Pexp:
+                if i.Plate_Expiry_Date <= threshhold:
+                    fleet_info_list.append(i)
+            
+            for j in Pexp:
+                if j.MOT_Expiry_Date <= threshhold:
+                    mot_list.append(j)
+        
+            context = {
+                'mot': mot_list,
+                'exwar': fleet_info_list,
+                # 'data' : Pexp
+            }
+        
+        if q == 'exp':
+            threshhold = today
+            Pexp = Fleet.objects.all()
+            for i in Pexp:
+                if i.Plate_Expiry_Date < threshhold:
+                    fleet_info_list.append(i)
+            
+            for j in Pexp:
+                if j.MOT_Expiry_Date < threshhold:
+                    mot_list.append(j)
+        
+            context = {
+                'exps': 'exps',
+                'mot': mot_list,
+                'exwar': fleet_info_list,
+                # 'data' : Pexp
+            }
+
+    return render(request, 'admin/managefleet.html', context)
+
+
+def EditFleet(request, pk):
+    if request.user.is_superuser:
+
+        data = Fleet.objects.get(id = pk)
+        form = MyFleets(instance=data)
+        
+
+        if request.method == 'POST':
+            datas = MyFleets(request.POST, instance=data)
+            if datas.is_valid():
+                datas.save()
+                messages.success(request, 'Succesfully Updated The Vehicle Information')
+                return redirect(reverse('editfleet', args=[pk]))
+            # obj = datas.save(commit=False)
+            # obj.fromCity = aid
+            # obj.save()
+            else:
+                messages.error(request, "Sorry, Something Went Wrong, Check Your Inputs...")
+        # else:
+        #     messages.error(request, "I think you sent a bad request, for security issues we cannot allow your submit")
+        
+
+        context = {
+            'form': form,
+            'data': data
+        }
+
+    return render(request, 'admin/editfleet.html', context)
+
+def DeleteFleet(request, pk):
+    data = Fleet.objects.get(id = pk)
+    data.delete()
+    messages.success(request, "Deleted Successfully..")
+    return render(request, 'admin/managefleet.html')

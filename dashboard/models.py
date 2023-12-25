@@ -56,3 +56,15 @@ class businessForm(models.Model):
     def __str__(self):
         return self.Company_Name
     
+
+# Model to Store Fleet
+class Fleet(models.Model):
+    id = models.UUIDField(primary_key = True, editable = False, default = uuid.uuid4)
+    Plate_Number = models.CharField(max_length = 10, null = True)
+    Make_or_Model = models.CharField(max_length = 20, null = True)
+    PH_or_HC = models.CharField(max_length = 2, null = True)
+    Number_Plate = models.CharField(max_length = 20, null = True)
+    Color = models.CharField(max_length = 20, null = True)
+    Plate_Expiry_Date = models.DateField(null = True)
+    MOT_Expiry_Date = models.DateField(null = True)
+    

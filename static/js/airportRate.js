@@ -1,5 +1,5 @@
 let result;
-const baseUrl = window.location.host
+// const baseUrl = "http://127.0.0.1:8000/"
 
 const getDest = async()=> {
 
@@ -9,7 +9,7 @@ const getDest = async()=> {
 
     const where = document.getElementById('where')
 
-    const destUrl = `${baseUrl}/users/airportDest?dest=${fromCity.value}`;
+    const destUrl = `http://127.0.0.1:8000/users/airportDest?dest=${fromCity.value}`;
 
 
 

@@ -16,4 +16,9 @@ urlpatterns = [
     path('oldComplaints/', views.oldComplaints, name='oldComplaints'),
     path('driverFiles/', views.DriverFiles, name='driverFiles'),
     path('driverFilesView/<str:pk>/', views.DriverFilesView, name='driverFilesView'),
+    path('myfleet/', views.MyFleet, name='myfleet'),
+    path('managefleet/', views.ManageFleet, name='managefleet'),
+    path('editfleet/<str:pk>/', views.EditFleet, name='editfleet'),
+    path('deletefleet/<str:pk>/', views.DeleteFleet, name='deletefleet'),
+
 ]
