@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, timedelta
 from django.utils import timezone
+from . utils import SendMail
 
 
 # Create your views here.
@@ -38,15 +39,34 @@ def complaints(request):
 
 def showComplaint(request, pk):
     if request.user.is_superuser:
+       
+
+
         try:
             data = users.models.ComplaintForm.objects.get(id = pk)
 
+            replys = users.models.Reply.objects.filter(com_id = data.id)
+
+            if request.method == 'POST':
+                mesage = request.POST['reply-message']
+                form = users.models.Reply(messages = mesage, com_id = data, who_sent = request.user)
+                subject = "Hello, This is a  message from Eurocabs for your Complaint.."
+                messag = "Hey, Hello " + data.userName + "\n Complaint ID: " + data.ComplintId + "\n\n" + mesage +"\n\nThank You EuroCabs.."
+                try:
+                    SendMail(data.mail, messag, subject)
+                    form.save()
+                except InterruptedError:
+                    messages.error(request, "Sorry Can't Send Mail... Try Again..")
+
+
             context = {
-                'data': data
+                'data': data,
+                'reply': replys
             }
             return render(request, 'admin/showComplaint.html', context)
         except:
             return custom404(request)
+        
     else:
         return render(request, 'admin/notAuthorised.html')
 

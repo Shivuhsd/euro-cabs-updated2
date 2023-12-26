@@ -1,7 +1,5 @@
 from django.db import models
 import uuid
-from . custom import generate_unique_random_numbers
-import datetime
 import accounts.models
 # from .views import request
 # Create your models here.
@@ -16,8 +14,9 @@ import accounts.models
 
 class ComplaintForm(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    ComplintId = models.CharField(max_length = 10, null = True, default = generate_unique_random_numbers(8))
+    ComplintId = models.CharField(max_length = 10, null = True, default = "00001")
     userName = models.CharField(max_length=100, blank=False, default=None)
+    mail = models.EmailField(null = True)
     dateOfJourney = models.DateField(blank=False)
     phoneNumber = models.CharField(blank=False, max_length=20)
     pickUpAddress = models.TextField(blank=False)
@@ -50,3 +49,16 @@ class DriverFiles(models.Model):
     all_files_flag = models.BooleanField(default = False)
     time_stamp = models.DateTimeField(auto_now_add = True)
     accept_flag = models.BooleanField(default = False)
+
+
+# Stores Reply Sent to Users
+    
+class Reply(models.Model):
+    id = models.UUIDField(primary_key = True, editable = False, default = uuid.uuid4)
+    com_id = models.ForeignKey(ComplaintForm, on_delete = models.CASCADE)
+    messages = models.CharField(max_length = 1000, null = True)
+    time_stamp = models.DateTimeField(auto_now_add = True)
+    who_sent = models.ForeignKey(accounts.models.CustomUser, on_delete = models.PROTECT)
+
+    def __str__(self):
+        return str(self.com_id)

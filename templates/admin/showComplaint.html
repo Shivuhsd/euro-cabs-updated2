@@ -30,6 +30,26 @@
         </button>
         <button type="button" class="btn btn-primary" disabled style="display: none;" id="Accepted">Token Accepted</button>
         {%endif%}
+
+
+
+        <div class="mt-5">
+          <h3 class="py-3">Reply</h3>
+          <form method="POST">
+            {% csrf_token %}
+            <textarea type="text" name="reply-message" class="form-control" placeholder="Your Reply"></textarea>
+            <button class="btn btn-dark my-2">Reply</button>
+          </form>
+        </div>
+
+        {% if reply %}
+        <div>
+          <h3>Reply Sent</h3>
+          {% for i in reply %}
+            <p>{{i.messages}}</p>
+          {% endfor %}
+        </div>
+        {% endif %}
    </div>
 
    
