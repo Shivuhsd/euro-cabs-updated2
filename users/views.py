@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
-from .models import ComplaintForm, DriverFiles
+from .models import ComplaintForm, DriverFiles, Reply
 import dashboard.models
 from .forms import MyBusinessForm, MyDriver
 from django.contrib import messages
@@ -220,3 +220,23 @@ def DriverDash(request):
         return redirect('driverForm')
 
     return render(request, 'user/driverDash.html', {'data': mes})
+
+
+def CusReply(request, pk, rep):
+    com = ComplaintForm.objects.get(id = pk)
+    which_reply = Reply.objects.get(id = rep)
+    if request.method == 'POST':
+        mes = request.POST[
+            'reply-message'
+        ]
+        form = dashboard.models.ReplyCus(
+                    com_id = com,
+                    which_mes = which_reply,
+                    reply_mes = mes,
+                )
+        form.save()
+    context = {
+        'com': com,
+        'which': which_reply
+    }
+    return render(request, 'user/cusreply.html', context)

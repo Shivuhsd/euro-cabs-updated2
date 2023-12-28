@@ -2,14 +2,15 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 import users.models
 import accounts.models
-from . models import airportRates, airportCity, businessForm, Fleet
+from . models import airportRates, airportCity, businessForm, Fleet, ReplyCus
 from django.http import HttpResponse, JsonResponse
-from .forms import MyAirportCity, MyFleets
+from .forms import MyAirportCity, MyFleets, MyReply
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, timedelta
 from django.utils import timezone
 from . utils import SendMail
+from django.contrib.sites.shortcuts import get_current_site
 
 
 # Create your views here.
@@ -42,30 +43,50 @@ def showComplaint(request, pk):
        
 
 
-        try:
+        # try:
+            cusreply = ''
             data = users.models.ComplaintForm.objects.get(id = pk)
 
             replys = users.models.Reply.objects.filter(com_id = data.id)
+            
+            for i in replys:
+                cusreply = ReplyCus.objects.filter(which_mes = i)
 
             if request.method == 'POST':
                 mesage = request.POST['reply-message']
-                form = users.models.Reply(messages = mesage, com_id = data, who_sent = request.user)
+                form = MyReply({'messages' : mesage, 'com_id' : data, 'who_sent' : request.user})
                 subject = "Hello, This is a  message from Eurocabs for your Complaint.."
-                messag = "Hey, Hello " + data.userName + "\n Complaint ID: " + data.ComplintId + "\n\n" + mesage +"\n\nThank You EuroCabs.."
-                try:
+                
+                # try:
+                if form.is_valid():
+                    obj = form.save(commit = False)
+                    current_site = get_current_site(request)
+                    dom = current_site.domain
+                    messag = "Hey, Hello " + data.userName + "\nComplaint ID: " + data.ComplintId + "\n\n" + mesage +"\n\nIf you want to reply for this message click on below link \n\n"+ dom+"/users/comreply/" + str(data.id) +"/"+str(obj.id) +"\n\nThank You EuroCabs.."
                     SendMail(data.mail, messag, subject)
-                    form.save()
-                except InterruptedError:
-                    messages.error(request, "Sorry Can't Send Mail... Try Again..")
+                    obj.save()
+                # except InterruptedError:
+                messages.error(request, "Sorry Can't Send Mail... Try Again..")
 
+            cusreply_dict = {entry.which_mes.id: entry for entry in cusreply}
+            for i in cusreply_dict:
+                print(i)
 
             context = {
                 'data': data,
-                'reply': replys
+                'reply': replys,
+                'cusreply': cusreply
             }
+            
+            for i in replys:
+                for j in cusreply:
+                    if i.id in cusreply_dict:
+                        print("id Reply :" + str(i.id) + "---- Id CusReply" + str(j.which_mes.id))
+                        print("Hello This is Customer Reply..." + j.reply_mes)
+
             return render(request, 'admin/showComplaint.html', context)
-        except:
-            return custom404(request)
+        # except:
+        #     return custom404(request)
         
     else:
         return render(request, 'admin/notAuthorised.html')

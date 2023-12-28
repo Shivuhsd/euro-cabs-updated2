@@ -21,4 +21,8 @@ urlpatterns = [
 
     path('driverForm/', views.DriverForm, name='driverForm'),
     path('driverDash/', views.DriverDash, name='driverDash'),
+
+
+    ## Users Reply for A complaint Feedback
+    path('comreply/<str:pk>/<str:rep>/', views.CusReply, name='cusreply'),
 ]

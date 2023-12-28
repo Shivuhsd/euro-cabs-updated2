@@ -61,4 +61,4 @@ class Reply(models.Model):
     who_sent = models.ForeignKey(accounts.models.CustomUser, on_delete = models.PROTECT)
 
     def __str__(self):
-        return str(self.com_id)
+        return str(self.id)

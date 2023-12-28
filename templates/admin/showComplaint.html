@@ -47,6 +47,11 @@
           <h3>Reply Sent</h3>
           {% for i in reply %}
             <p>{{i.messages}}</p>
+            {% for j in cusreply %}
+                {% if i.id == j.which_mes.id %}
+                  <p>{{j.reply_mes}}</p>
+                {% endif %}
+            {% endfor %}
           {% endfor %}
         </div>
         {% endif %}

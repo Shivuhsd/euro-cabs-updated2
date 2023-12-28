@@ -1,5 +1,6 @@
 from django.db import models
 import uuid
+import users.models
 
 # Create your models here.
 class airportRates(models.Model):
@@ -67,4 +68,14 @@ class Fleet(models.Model):
     Color = models.CharField(max_length = 20, null = True)
     Plate_Expiry_Date = models.DateField(null = True)
     MOT_Expiry_Date = models.DateField(null = True)
+
+
+#Reply from Customers for complaint
+class ReplyCus(models.Model):
+    id = models.UUIDField(primary_key = True, editable= False, default = uuid.uuid4)
+    com_id = models.ForeignKey(users.models.ComplaintForm, on_delete = models.PROTECT)
+    which_mes = models.ForeignKey(users.models.Reply, on_delete = models.PROTECT)
+    reply_mes = models.TextField(null = True)
+    time_stamp = models.DateTimeField(auto_now_add = True)
+
     
