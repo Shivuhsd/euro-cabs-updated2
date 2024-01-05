@@ -10,7 +10,8 @@
   <div class="d-flex justify-content-between">
     <h4>Complaints</h4>
     <div>
-        <a href="{% url 'complaints' %}"><button class="btn btn-dark">New</button></a>
+        <a href="{% url 'complaints' %}"><button class="btn btn-primary">New</button></a>
+        <a href="{% url 'ongoing' %}"><button class="btn btn-warning">On Going</button></a>
         <a href="{% url 'oldComplaints' %}"><button class="btn btn-dark">Previous</button></a>
     </div>
   </div>
@@ -55,7 +56,7 @@
    {% else %}
     <div class="text-center mt-4">
       <img src="{% static 'img/nomail.svg' %}" alt="No Complaints Img" class="img-fluid" style="width: 400px;">
-      <h1>There is Old New Complaints...</h1>
+      <h1>There is No Old Complaints...</h1>
     </div>
    
 

@@ -19,8 +19,8 @@ urlpatterns = [
 
     ##Driver Registration Field
 
-    path('driverForm/', views.DriverForm, name='driverForm'),
-    path('driverDash/', views.DriverDash, name='driverDash'),
+    #path('driverForm/', views.DriverForm, name='driverForm'),
+    #path('driverDash/', views.DriverDash, name='driverDash'),
 
 
     ## Users Reply for A complaint Feedback

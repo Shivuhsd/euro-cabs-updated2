@@ -89,6 +89,7 @@ def complaintForm(request):
     other = ''
     if request.method == 'POST':
         userName = request.POST['userName']
+        mail = request.POST['mail']
         dateOfJourney = request.POST['dateOfJourney']
         phoneNumber = request.POST['phoneNumber']
         pickUpAddress = request.POST['pickUpAddress']
@@ -100,6 +101,7 @@ def complaintForm(request):
         description = request.POST['description']
 
         form = ComplaintForm(ComplintId = generate_unique_random_numbers(8),
+                             mail = mail,
                             userName = userName, 
                              dateOfJourney = dateOfJourney, 
                              phoneNumber = phoneNumber,

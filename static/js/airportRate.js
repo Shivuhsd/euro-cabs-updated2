@@ -9,7 +9,13 @@ const getDest = async()=> {
 
     const where = document.getElementById('where')
 
-    const destUrl = `http://127.0.0.1:8000/users/airportDest?dest=${fromCity.value}`;
+    let domain = window.location.hostname;
+
+    const destUrl = `http://${domain}:8000/users/airportDest?dest=${fromCity.value}`;
+
+    console.log(domain);
+
+    console.log(destUrl);
 
 
 
@@ -45,8 +51,8 @@ const getPrice = async() => {
         {
             document.getElementById('price').style.display = 'flex';
             document.getElementById('price').style.justifyContent = 'space-between'
-            document.getElementById('night').value = i.nightRate;
-            document.getElementById('day').value = i.dayRate
+            document.getElementById('night').value = `£ ${i.nightRate}`;
+            document.getElementById('day').value = `£ ${i.dayRate}`;
         }
         
     }

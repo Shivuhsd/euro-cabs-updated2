@@ -20,5 +20,6 @@ urlpatterns = [
     path('managefleet/', views.ManageFleet, name='managefleet'),
     path('editfleet/<str:pk>/', views.EditFleet, name='editfleet'),
     path('deletefleet/<str:pk>/', views.DeleteFleet, name='deletefleet'),
-
+    path('ongoing/', views.onGoing, name='ongoing'),
+    path('resolved/<str:pk>/', views.Resolved, name='resolved')
 ]

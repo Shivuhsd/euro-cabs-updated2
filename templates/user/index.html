@@ -181,7 +181,7 @@
       <div class="service-item" onclick="window.open('{% url 'rides' %}', '_self')" target="blank">
         <img src="{% static 'assets/images/cab.png' %}" alt="Service 1">
         <h3>Rides</h3>
-        <p>Request in seconds ride until you are satisfied with an affordable cost .</p>
+        <p>Request a ride in seconds at an affordable cost.</p>
       </div>
       <div class="service-item" onclick="window.open('{% url 'corporate' %}', '_self')">
         <img src="{% static 'assets/images/handshake (1).png' %}" alt="Service 3">
@@ -191,23 +191,24 @@
       <div class="service-item" onclick="window.open('{% url 'airports' %}', '_self')">
         <img src="{% static 'assets/images/airport (1).png' %}" alt="Service 2">
         <h3>Airports</h3>
-        <p>We provide cab serivices in the areas of luton in an affordable cost.</p>
+        <p>Seamless and efficient rides for stress-free travel to and from the airport.</p>
       </div>
-      <div class="service-item" onclick="window.open('https://eb3.autocab.net/#/36364', '_self')" target="blank">
+      <div class="service-item" onclick="window.open('#', '_self')" target="blank">
         <img src="{% static 'assets/images/cab-sens.png' %}" alt="Service 4">
         <h3>Drive</h3>
-        <p>Drive Seimlessly With Euor cabs at a affordable rates.</p>
+        <p>Earn with eurocabs as a driver.</p>
       </div>
-      <div class="service-item" onclick="window.open('./schoolRuns.html', '_self')">
+      <div class="service-item" onclick="window.open('{% url 'schools' %}', '_self')">
         <img src="{% static 'assets/images/school (1).png' %}" alt="Service 5">
         <h3>School Transport</h3>
-        <p>We also provide Franchise Services For your cities .</p>
+        <p> Reliable rides for students, ensuring safety and convenience.</p>
       </div>
-      <div class="service-item" onclick="window.open('https://eb3.autocab.net/#/36364', '_self')" target="blank">
-        <img src="{% static 'assets/images/drive.png' %}" alt="Service 6">
-        <h3>SENS Transport</h3>
-        <p>we also provide who are deemed eligible for transport.</p>
-      </div>
+      <!-- <div class="service-item" onclick="window.open('./schoolRunPortal.html', '_self')" target="blank">
+        <img src="assets/images/drive.png" alt="Service 6">
+        <h3>School Runs Portal</h3>
+        <p>Eurocabs drivers bid on available school runs at your chosen
+          price.</p>
+      </div> -->
     </div>
   </div>
 
@@ -377,6 +378,10 @@
       <div class="form-group">
         <label for="userName">Name</label>
         <input required type="text" id="userName" placeholder="Name" name="userName">
+      </div>
+      <div class="form-group">
+        <label for="mail">Email</label>
+        <input required type="email" id="mail" placeholder="Email" name="mail">
       </div>
       <div class="form-group">
         <label for="dateOfJourney">Date Of Journey</label>

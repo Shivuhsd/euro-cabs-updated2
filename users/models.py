@@ -24,6 +24,8 @@ class ComplaintForm(models.Model):
     complaintRegarding = models.TextField(blank=False)
     description = models.TextField(blank=False)
     opened = models.BooleanField(default=False, blank=False)
+    ongoing = models.BooleanField(default=False, blank=False)
+    closed = models.BooleanField(default=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
 

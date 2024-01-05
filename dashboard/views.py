@@ -49,8 +49,10 @@ def showComplaint(request, pk):
 
             replys = users.models.Reply.objects.filter(com_id = data.id)
             
-            for i in replys:
-                cusreply = ReplyCus.objects.filter(which_mes = i)
+            
+            cusreply = ReplyCus.objects.filter(com_id = data.id)
+            
+            
 
             if request.method == 'POST':
                 mesage = request.POST['reply-message']
@@ -68,9 +70,6 @@ def showComplaint(request, pk):
                 # except InterruptedError:
                 messages.error(request, "Sorry Can't Send Mail... Try Again..")
 
-            cusreply_dict = {entry.which_mes.id: entry for entry in cusreply}
-            for i in cusreply_dict:
-                print(i)
 
             context = {
                 'data': data,
@@ -78,11 +77,11 @@ def showComplaint(request, pk):
                 'cusreply': cusreply
             }
             
-            for i in replys:
-                for j in cusreply:
-                    if i.id in cusreply_dict:
-                        print("id Reply :" + str(i.id) + "---- Id CusReply" + str(j.which_mes.id))
-                        print("Hello This is Customer Reply..." + j.reply_mes)
+            # for i in replys:
+            #     for j in cusreply:
+            #         if i.id in cusreply_dict:
+            #             print("id Reply :" + str(i.id) + "---- Id CusReply" + str(j.which_mes.id))
+            #             print("Hello This is Customer Reply..." + j.reply_mes)
 
             return render(request, 'admin/showComplaint.html', context)
         # except:
@@ -97,6 +96,18 @@ def tokenAccepted(request, pk):
     try:
         data = users.models.ComplaintForm.objects.get(id = pk)
         data.opened = True
+        data.ongoing = True
+        data.save()
+        return JsonResponse({'status': 'success'})
+    except:
+        return JsonResponse({'status': 'failed'})
+    
+
+def Resolved(request, pk):
+    try:
+        data = users.models.ComplaintForm.objects.get(id = pk)
+        data.ongoing = False
+        data.closed = True
         data.save()
         return JsonResponse({'status': 'success'})
     except:
@@ -252,7 +263,7 @@ def businessFormView(request, pk):
 # Function to View Old Complaints
 @login_required(login_url='userLogin')
 def oldComplaints(request):
-    data = users.models.ComplaintForm.objects.filter(opened = True)
+    data = users.models.ComplaintForm.objects.filter(closed = True)
 
     context = {
         'complaints': data
@@ -260,7 +271,14 @@ def oldComplaints(request):
 
     return render(request, 'admin/oldComplaints.html', context)
 
+def onGoing(request):
+    data = users.models.ComplaintForm.objects.filter(ongoing = True)
 
+    context = {
+        'complaints':data
+    }
+
+    return render(request, 'admin/ongoingCom.html', context)
 
 
 @login_required(login_url='userLogin')

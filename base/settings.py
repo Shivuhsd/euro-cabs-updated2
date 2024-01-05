@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-t^v$ow)l3mhl@8lrb(a2rn(ja&e(k+i5xtu%2sx!8^%a$7q(79'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', '*', '195.35.24.50']
 
@@ -88,6 +88,13 @@ DATABASES = {
 }
 
 
+import dj_database_url
+
+DATABASES['default'] = dj_database_url.config(
+    conn_max_age=600,
+    conn_health_checks=True,
+)
+
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -123,6 +130,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 STATICFILES_DIRS = [
